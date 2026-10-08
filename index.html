@@ -2,22 +2,225 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LPU Food Delivery</title>
+  <meta name="theme-color" content="#d35400">
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; background: #fff8f0; }
-    h1 { color: #d35400; }
-    .card { background: white; padding: 20px; border-radius: 12px; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-top: 20px; }
-    button { background: #e67e22; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-size: 16px; cursor: pointer; }
-    button:hover { background: #d35400; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: #f7f9fa; color: #222; padding-bottom: 70px; }
+    header { background: #d35400; color: white; padding: 20px 15px; text-align: center; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+    header h1 { font-size: 22px; font-weight: 800; }
+    header p { font-size: 13px; opacity: 0.9; margin-top: 3px; }
+
+    .container { max-width: 600px; margin: 0 auto; padding: 15px; }
+    h2 { font-size: 18px; margin: 15px 0 10px; color: #2c3e50; }
+
+    .menu-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px; }
+    .food-card { background: white; border-radius: 12px; padding: 14px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+    .food-info { display: flex; align-items: center; gap: 12px; }
+    .food-icon { font-size: 32px; background: #fff5eb; padding: 8px; border-radius: 10px; }
+    .food-title { font-weight: 700; font-size: 15px; }
+    .food-price { color: #d35400; font-weight: 700; font-size: 14px; margin-top: 2px; }
+
+    .btn-add { background: #e67e22; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+    .btn-add:active { transform: scale(0.96); }
+
+    .box-card { background: white; border-radius: 12px; padding: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
+    .cart-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #eee; font-size: 14px; }
+    .total-row { display: flex; justify-content: space-between; font-size: 16px; font-weight: 800; color: #d35400; margin-top: 12px; }
+
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 4px; color: #555; }
+    .form-group input, .form-group select { width: 100%; padding: 11px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; }
+    .form-group input:focus, .form-group select:focus { border-color: #d35400; }
+
+    .btn-order { width: 100%; background: #25D366; color: white; border: none; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(37,211,102,0.3); }
+    .btn-order:active { transform: scale(0.98); }
   </style>
 </head>
 <body>
-  <h1>🍔 LPU Food Delivery 🍕</h1>
-  <p>Fresh & fast food delivered inside campus!</p>
-  <div class="card">
-    <h3>Veg Burger Combo</h3>
-    <p>Price: ₹120</p>
-    <button onclick="alert('Order Placed Successfully!')">Order Now</button>
+
+  <header>
+    <h1>🍔 LPU Food Delivery 🍕</h1>
+    <p>Fast delivery to your Hostel / Block</p>
+  </header>
+
+  <div class="container">
+    <h2>Popular Menu</h2>
+    <div class="menu-list">
+      <div class="food-card">
+        <div class="food-info">
+          <span class="food-icon">🍔</span>
+          <div>
+            <div class="food-title">Crispy Veg Burger</div>
+            <div class="food-price">₹60</div>
+          </div>
+        </div>
+        <button class="btn-add" onclick="addItem('Crispy Veg Burger', 60)">+ Add</button>
+      </div>
+
+      <div class="food-card">
+        <div class="food-info">
+          <span class="food-icon">🍕</span>
+          <div>
+            <div class="food-title">Farmhouse Pizza</div>
+            <div class="food-price">₹180</div>
+          </div>
+        </div>
+        <button class="btn-add" onclick="addItem('Farmhouse Pizza', 180)">+ Add</button>
+      </div>
+
+      <div class="food-card">
+        <div class="food-info">
+          <span class="food-icon">🌯</span>
+          <div>
+            <div class="food-title">Paneer Tikka Roll</div>
+            <div class="food-price">₹90</div>
+          </div>
+        </div>
+        <button class="btn-add" onclick="addItem('Paneer Tikka Roll', 90)">+ Add</button>
+      </div>
+
+      <div class="food-card">
+        <div class="food-info">
+          <span class="food-icon">🥤</span>
+          <div>
+            <div class="food-title">Cold Coffee</div>
+            <div class="food-price">₹50</div>
+          </div>
+        </div>
+        <button class="btn-add" onclick="addItem('Cold Coffee', 50)">+ Add</button>
+      </div>
+    </div>
+
+    <!-- Cart Box -->
+    <div class="box-card">
+      <h2>Your Cart</h2>
+      <div id="cart-container">
+        <p style="color: #888; font-size: 14px;">Cart is empty. Add items from above!</p>
+      </div>
+      <div class="total-row" id="total-row" style="display:none;">
+        <span>Total Bill:</span>
+        <span id="total-amount">₹0</span>
+      </div>
+    </div>
+
+    <!-- Delivery Form -->
+    <div class="box-card">
+      <h2>Delivery Details</h2>
+      <form onsubmit="sendWhatsAppOrder(event)">
+        <div class="form-group">
+          <label>Student Name</label>
+          <input type="text" id="cust-name" placeholder="Enter full name" required>
+        </div>
+
+        <div class="form-group">
+          <label>Hostel / Apartment</label>
+          <select id="cust-hostel" required>
+            <option value="">Select Hostel / Block</option>
+            <option value="BH-1">BH-1</option>
+            <option value="BH-2">BH-2</option>
+            <option value="BH-3">BH-3</option>
+            <option value="BH-4">BH-4</option>
+            <option value="BH-5">BH-5</option>
+            <option value="BH-6">BH-6</option>
+            <option value="BH-7">BH-7</option>
+            <option value="GH-1">GH-1</option>
+            <option value="GH-2">GH-2</option>
+            <option value="GH-3">GH-3</option>
+            <option value="GH-4">GH-4</option>
+            <option value="GH-5">GH-5</option>
+            <option value="GH-6">GH-6</option>
+            <option value="Uni-Mall">Uni-Mall</option>
+            <option value="Main Gate">Main Gate</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Room Number</label>
+          <input type="text" id="cust-room" placeholder="e.g. 412-B" required>
+        </div>
+
+        <div class="form-group">
+          <label>Mobile Number</label>
+          <input type="tel" id="cust-phone" placeholder="Your contact number" required>
+        </div>
+
+        <button type="submit" class="btn-order">
+          <span>📲 Order Now via WhatsApp</span>
+        </button>
+      </form>
+    </div>
   </div>
+
+  <script>
+    // AAPKA WHATSAPP NUMBER SET HO GAYA HAI
+    const ADMIN_PHONE = "918957645702"; 
+
+    let cart = [];
+    let total = 0;
+
+    function addItem(name, price) {
+      cart.push({ name, price });
+      total += price;
+      renderCart();
+    }
+
+    function renderCart() {
+      const container = document.getElementById("cart-container");
+      const totalRow = document.getElementById("total-row");
+      const totalAmount = document.getElementById("total-amount");
+
+      if (cart.length === 0) {
+        container.innerHTML = '<p style="color: #888; font-size: 14px;">Cart is empty. Add items from above!</p>';
+        totalRow.style.display = 'none';
+        return;
+      }
+
+      let html = '';
+      cart.forEach((item) => {
+        html += `<div class="cart-item">
+          <span>${item.name}</span>
+          <span>₹${item.price}</span>
+        </div>`;
+      });
+
+      container.innerHTML = html;
+      totalAmount.innerText = `₹${total}`;
+      totalRow.style.display = 'flex';
+    }
+
+    function sendWhatsAppOrder(e) {
+      e.preventDefault();
+      if (cart.length === 0) {
+        alert("Pehle cart mein items add karein!");
+        return;
+      }
+
+      const name = document.getElementById("cust-name").value;
+      const hostel = document.getElementById("cust-hostel").value;
+      const room = document.getElementById("cust-room").value;
+      const phone = document.getElementById("cust-phone").value;
+
+      let itemsSummary = cart.map(i => `- ${i.name} (₹${i.price})`).join("\n");
+
+      let rawMessage = 
+`🍔 *NAYA LPU FOOD ORDER* 🍕
+
+*Customer:* ${name}
+*Phone:* ${phone}
+*Hostel:* ${hostel}
+*Room No:* ${room}
+
+*Order Items:*
+${itemsSummary}
+
+*Total Bill:* ₹${total}
+*Payment:* Cash on Delivery / UPI`;
+
+      const whatsappURL = `https://wa.me/${ADMIN_PHONE}?text=${encodeURIComponent(rawMessage)}`;
+      window.open(whatsappURL, "_blank");
+    }
+  </script>
 </body>
 </html>
